@@ -104,6 +104,7 @@ var currentPoster;
 // query selector variables - move to top of page when done!
 var randomPosterButton = document.querySelector('.show-random')
 var titleText = document.querySelector('.poster-title')
+var image = document.querySelector('.poster-img')
 
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', function() {
@@ -112,6 +113,7 @@ randomPosterButton.addEventListener('click', function() {
   var generatedTitle = titles[getRandomIndex(titles)]
 
   titleText.innerText = generatedTitle
+  image.src = generatedImage
 })
 
 // functions and event handlers go here 👇
