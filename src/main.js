@@ -103,6 +103,7 @@ var currentPoster;
 
 // query selector variables - move to top of page when done!
 var randomPosterButton = document.querySelector('.show-random')
+var posterFormButton = document.querySelector('.show-form')
 var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
 var quoteText = document.querySelector('.poster-quote')
@@ -111,6 +112,12 @@ var quoteText = document.querySelector('.poster-quote')
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', posterGenerator)
 window.addEventListener('load', posterGenerator)
+
+posterFormButton.addEventListener('click', function() {
+  document.querySelector('.main-poster').className += ' hidden'
+  document.querySelector('.poster-form hidden').className
+
+})
 
 function posterGenerator() {
   var generatedQuote = quotes[getRandomIndex(quotes)]
