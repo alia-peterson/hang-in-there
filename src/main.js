@@ -102,13 +102,6 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
-randomPosterButton.addEventListener(‘click’, function() {
-  var generatedQuote = quotes[getRandomIndex(quotes)]
-  var generatedImage = images[getRandomIndex(images)]
-  var generatedTitle = titles[getRandomIndex(titles)]
-
-  titleText.innerText = generatedTitle
-})
 
 // functions and event handlers go here 👇
 // (we've provided one for you to get you started)!
@@ -116,6 +109,3 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-// query selector variables - move to top of page when done!
-var randomPosterButton = document.querySelector(‘.show-random’)
-var titleText = document.querySelector(‘.poster-title’)
