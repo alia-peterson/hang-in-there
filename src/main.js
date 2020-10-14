@@ -105,16 +105,24 @@ var currentPoster;
 var randomPosterButton = document.querySelector('.show-random')
 var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
+var quoteText = document.querySelector('.poster-quote')
+
 
 // event listeners go here 👇
-randomPosterButton.addEventListener('click', function() {
+randomPosterButton.addEventListener('click', posterGenerator)
+window.addEventListener('load', posterGenerator)
+
+function posterGenerator() {
   var generatedQuote = quotes[getRandomIndex(quotes)]
   var generatedImage = images[getRandomIndex(images)]
   var generatedTitle = titles[getRandomIndex(titles)]
 
   titleText.innerText = generatedTitle
   image.src = generatedImage
-})
+  quoteText.innerText = generatedQuote
+}
+
+
 
 // functions and event handlers go here 👇
 // (we've provided one for you to get you started)!
