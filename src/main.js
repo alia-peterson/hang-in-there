@@ -105,6 +105,8 @@ var currentPoster;
 var randomPosterButton = document.querySelector('.show-random')
 var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
+var quoteText = document.querySelector('.poster-quote')
+
 
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', function() {
@@ -114,6 +116,7 @@ randomPosterButton.addEventListener('click', function() {
 
   titleText.innerText = generatedTitle
   image.src = generatedImage
+  quoteText.innerText = generatedQuote
 })
 
 // functions and event handlers go here 👇
