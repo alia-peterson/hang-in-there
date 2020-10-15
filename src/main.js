@@ -119,10 +119,6 @@ var userTitle = document.getElementById('poster-title')
 var userQuote = document.getElementById('poster-quote')
 
 
-// currentPoster.title = document.querySelector('.poster-title')
-// currentPoster.imageURL = document.querySelector('.poster-img')
-// currentPoster.quote = document.querySelector('.poster-quote')
-
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', posterGenerator)
 window.addEventListener('load', posterGenerator)
