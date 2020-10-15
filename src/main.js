@@ -108,10 +108,16 @@ var posterFormBackButton = document.querySelector('.show-main')
 var saveThisPosterButton = document.querySelector('.save-poster')
 var showSavedPostersButton = document.querySelector('.show-saved')
 var backToMainButton = document.querySelector('.back-to-main')
+var showMyPosterButton = document.querySelector('.make-poster')
 
 var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
 var quoteText = document.querySelector('.poster-quote')
+
+var userImageURL = document.getElementById('poster-image-url')
+var userTitle = document.getElementById('poster-title')
+var userQuote = document.getElementById('poster-quote')
+
 
 // currentPoster.title = document.querySelector('.poster-title')
 // currentPoster.imageURL = document.querySelector('.poster-img')
@@ -126,6 +132,7 @@ posterFormBackButton.addEventListener('click', posterFormToggle)
 
 showSavedPostersButton.addEventListener('click', savedPostersToggle)
 backToMainButton.addEventListener('click', savedPostersToggle)
+
 
 
 function posterFormToggle() {
