@@ -20,7 +20,7 @@ var images = [
   "./assets/squirrel.jpg",
   "./assets/tiger.jpg",
   "./assets/turtle.jpg"
-];
+]
 var titles = [
   "determination",
   "success",
@@ -57,7 +57,7 @@ var titles = [
   "trust",
   "understanding",
   "wisdom"
-];
+]
 var quotes = [
   "Don’t downgrade your dream just to fit your reality, upgrade your conviction to match your destiny.",
   "You are braver than you believe, stronger than you seem and smarter than you think.",
@@ -97,9 +97,10 @@ var quotes = [
   "No matter what people tell you, words and ideas can change the world.",
   "Each person must live their life as a model for others.",
   "A champion is defined not by their wins but by how they can recover when they fall."
-];
-var savedPosters = [];
-var currentPoster = new Poster();
+]
+
+var savedPosters = []
+var currentPoster
 
 // query selector variables - move to top of page when done!
 var randomPosterButton = document.querySelector('.show-random')
@@ -110,9 +111,9 @@ var showSavedPostersButton = document.querySelector('.show-saved')
 var backToMainButton = document.querySelector('.back-to-main')
 var showMyPosterButton = document.querySelector('.make-poster')
 
-var titleText = document.querySelector('.poster-title')
-var image = document.querySelector('.poster-img')
-var quoteText = document.querySelector('.poster-quote')
+var mainTitle = document.querySelector('.poster-title')
+var mainImageURL = document.querySelector('.poster-img')
+var mainQuote = document.querySelector('.poster-quote')
 
 
 // event listeners go here 👇
@@ -127,11 +128,11 @@ randomPosterButton.addEventListener('click', function() {
 })
 
 showMyPosterButton.addEventListener('click', function() {
-  var imageURL = document.getElementById('poster-image-url').value
-  var title = document.getElementById('poster-title').value
-  var quote = document.getElementById('poster-quote').value
+  var userImageURL = document.getElementById('poster-image-url').value
+  var userTitle = document.getElementById('poster-title').value
+  var userQuote = document.getElementById('poster-quote').value
 
-  currentPoster = new Poster(imageURL, title, quote)
+  currentPoster = new Poster(userImageURL, userTitle, userQuote)
 
   event.preventDefault()
   displayPoster()
@@ -156,13 +157,13 @@ saveThisPosterButton.addEventListener('click', function() {
 // functions and event handlers go here 👇
 // (we've provided one for you to get you started)!
 function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+  return Math.floor(Math.random() * array.length)
 }
 
 function displayPoster() {
-  image.src = currentPoster.imageURL
-  titleText.innerText = currentPoster.title
-  quoteText.innerText = currentPoster.quote
+  mainImageURL.src = currentPoster.imageURL
+  mainTitle.innerText = currentPoster.title
+  mainQuote.innerText = currentPoster.quote
 }
 
 function randomPoster() {
