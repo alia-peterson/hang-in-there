@@ -99,25 +99,40 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster;
+var currentPoster = new Poster();
 
 // query selector variables - move to top of page when done!
 var randomPosterButton = document.querySelector('.show-random')
 var posterFormButton = document.querySelector('.show-form')
+var savePosterButton = document.querySelector('.save-poster')
+
 var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
 var quoteText = document.querySelector('.poster-quote')
-
 
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', posterGenerator)
 window.addEventListener('load', posterGenerator)
 
 posterFormButton.addEventListener('click', function() {
-  document.querySelector('.main-poster').className += ' hidden'
-  document.querySelector('.poster-form hidden').className
+  document.querySelector('.main-poster').classList.add('hidden')
+  document.querySelector('.poster-form').classList.remove('hidden')
 
 })
+
+savePosterButton.addEventListener('click', function() {
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i] !== currentPoster) {
+      savedPosters.push(currentPoster)
+    }
+  }
+})
+
+// functions and event handlers go here 👇
+// (we've provided one for you to get you started)!
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}
 
 function posterGenerator() {
   var generatedQuote = quotes[getRandomIndex(quotes)]
@@ -127,12 +142,4 @@ function posterGenerator() {
   titleText.innerText = generatedTitle
   image.src = generatedImage
   quoteText.innerText = generatedQuote
-}
-
-
-
-// functions and event handlers go here 👇
-// (we've provided one for you to get you started)!
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
 }
