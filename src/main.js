@@ -117,22 +117,24 @@ var quoteText = document.querySelector('.poster-quote')
 
 // event listeners go here 👇
 window.addEventListener('load', function() {
-  currentPoster.randomize()
-  posterGenerator()
+  randomPoster()
+  displayPoster()
 })
 
 randomPosterButton.addEventListener('click', function() {
-  currentPoster.randomize()
-  posterGenerator()
+  randomPoster()
+  displayPoster()
 })
 
 showMyPosterButton.addEventListener('click', function() {
-  currentPoster.imageURL = document.getElementById('poster-image-url').value
-  currentPoster.title = document.getElementById('poster-title').value
-  currentPoster.quote = document.getElementById('poster-quote').value
+  var imageURL = document.getElementById('poster-image-url').value
+  var title = document.getElementById('poster-title').value
+  var quote = document.getElementById('poster-quote').value
+
+  currentPoster = new Poster(imageURL, title, quote)
 
   event.preventDefault()
-  posterGenerator()
+  displayPoster()
   posterFormToggle()
 })
 
@@ -141,18 +143,6 @@ posterFormBackButton.addEventListener('click', posterFormToggle)
 
 showSavedPostersButton.addEventListener('click', savedPostersToggle)
 backToMainButton.addEventListener('click', savedPostersToggle)
-
-
-
-function posterFormToggle() {
-  document.querySelector('.main-poster').classList.toggle('hidden')
-  document.querySelector('.poster-form').classList.toggle('hidden')
-}
-
-function savedPostersToggle() {
-  document.querySelector('.main-poster').classList.toggle('hidden')
-  document.querySelector('.saved-posters').classList.toggle('hidden')
-}
 
 
 saveThisPosterButton.addEventListener('click', function() {
@@ -169,9 +159,26 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-
-function posterGenerator() {
+function displayPoster() {
   image.src = currentPoster.imageURL
   titleText.innerText = currentPoster.title
   quoteText.innerText = currentPoster.quote
+}
+
+function randomPoster() {
+  var imageURL = images[getRandomIndex(images)]
+  var title = titles[getRandomIndex(titles)]
+  var quote = quotes[getRandomIndex(quotes)]
+
+  currentPoster = new Poster(imageURL, title, quote)
+}
+
+function posterFormToggle() {
+  document.querySelector('.main-poster').classList.toggle('hidden')
+  document.querySelector('.poster-form').classList.toggle('hidden')
+}
+
+function savedPostersToggle() {
+  document.querySelector('.main-poster').classList.toggle('hidden')
+  document.querySelector('.saved-posters').classList.toggle('hidden')
 }
