@@ -104,25 +104,47 @@ var currentPoster = new Poster();
 // query selector variables - move to top of page when done!
 var randomPosterButton = document.querySelector('.show-random')
 var posterFormButton = document.querySelector('.show-form')
-var savePosterButton = document.querySelector('.save-poster')
+var posterFormBackButton = document.querySelector('.show-main')
+var saveThisPosterButton = document.querySelector('.save-poster')
+var showSavedPostersButton = document.querySelector('.show-saved')
+var backToMainButton = document.querySelector('.back-to-main')
+var showMyPosterButton = document.querySelector('.make-poster')
 
 var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
 var quoteText = document.querySelector('.poster-quote')
 
+var userImageURL = document.getElementById('poster-image-url')
+var userTitle = document.getElementById('poster-title')
+var userQuote = document.getElementById('poster-quote')
+
+
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', posterGenerator)
 window.addEventListener('load', posterGenerator)
 
-posterFormButton.addEventListener('click', function() {
-  document.querySelector('.main-poster').classList.add('hidden')
-  document.querySelector('.poster-form').classList.remove('hidden')
+posterFormButton.addEventListener('click', posterFormToggle)
+posterFormBackButton.addEventListener('click', posterFormToggle)
 
-})
+showSavedPostersButton.addEventListener('click', savedPostersToggle)
+backToMainButton.addEventListener('click', savedPostersToggle)
 
-savePosterButton.addEventListener('click', function() {
+
+
+function posterFormToggle() {
+  document.querySelector('.main-poster').classList.toggle('hidden')
+  document.querySelector('.poster-form').classList.toggle('hidden')
+}
+
+function savedPostersToggle() {
+  document.querySelector('.main-poster').classList.toggle('hidden')
+  document.querySelector('.saved-posters').classList.toggle('hidden')
+}
+
+
+saveThisPosterButton.addEventListener('click', function() {
   for (var i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i] !== currentPoster) {
+    if (savedPosters[i].id !== currentPoster.id) {
       savedPosters.push(currentPoster)
     }
   }
@@ -134,10 +156,14 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
+
 function posterGenerator() {
   var generatedQuote = quotes[getRandomIndex(quotes)]
   var generatedImage = images[getRandomIndex(images)]
   var generatedTitle = titles[getRandomIndex(titles)]
+
+  var newPoster = new Poster(generatedImage, generatedTitle, generatedQuote)
+  currentPoster = newPoster
 
   titleText.innerText = generatedTitle
   image.src = generatedImage
