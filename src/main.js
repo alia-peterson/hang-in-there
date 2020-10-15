@@ -99,7 +99,7 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster = new Poster(image, titleText, quoteText);
+var currentPoster = new Poster();
 
 // query selector variables - move to top of page when done!
 var randomPosterButton = document.querySelector('.show-random')
@@ -110,14 +110,13 @@ var titleText = document.querySelector('.poster-title')
 var image = document.querySelector('.poster-img')
 var quoteText = document.querySelector('.poster-quote')
 
-
 // event listeners go here 👇
 randomPosterButton.addEventListener('click', posterGenerator)
 window.addEventListener('load', posterGenerator)
 
 posterFormButton.addEventListener('click', function() {
-  document.querySelector('.main-poster').className += ' hidden'
-  document.querySelector('.poster-form hidden').className
+  document.querySelector('.main-poster').classList.add('hidden')
+  document.querySelector('.poster-form').classList.remove('hidden')
 
 })
 
