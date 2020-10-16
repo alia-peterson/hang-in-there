@@ -132,6 +132,10 @@ showMyPosterButton.addEventListener('click', function() {
   var userTitle = document.getElementById('poster-title').value
   var userQuote = document.getElementById('poster-quote').value
 
+  images.push(userImageURL)
+  titles.push(userTitle)
+  quotes.push(userQuote)
+  
   currentPoster = new Poster(userImageURL, userTitle, userQuote)
 
   event.preventDefault()
@@ -152,6 +156,14 @@ saveThisPosterButton.addEventListener('click', function() {
       savedPosters.push(currentPoster)
     }
   }
+  var posterGrid = document.querySelector('.saved-posters-grid')
+
+  posterGrid.innerHTML += `
+    <div class="mini-poster">
+    <img src="${currentPoster.imageURL}" alt="nothin' to see here">
+    <h2>${currentPoster.title}</h2>
+    <h4>${currentPoster.quote}</h4>
+    </div>`
 })
 
 // functions and event handlers go here 👇
