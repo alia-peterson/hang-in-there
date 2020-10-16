@@ -115,6 +115,10 @@ var mainTitle = document.querySelector('.poster-title')
 var mainImageURL = document.querySelector('.poster-img')
 var mainQuote = document.querySelector('.poster-quote')
 
+var posterGrid = document.querySelector('.saved-posters-grid')
+var displaySavedPosters = document.createElement('article')
+
+posterGrid.appendChild(displaySavedPosters('h2'))
 
 // event listeners go here 👇
 window.addEventListener('load', function() {
@@ -135,7 +139,7 @@ showMyPosterButton.addEventListener('click', function() {
   images.push(userImageURL)
   titles.push(userTitle)
   quotes.push(userQuote)
-  
+
   currentPoster = new Poster(userImageURL, userTitle, userQuote)
 
   event.preventDefault()
@@ -151,19 +155,22 @@ backToMainButton.addEventListener('click', savedPostersToggle)
 
 
 saveThisPosterButton.addEventListener('click', function() {
-  for (var i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i].id !== currentPoster.id) {
+    if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
       savedPosters.push(currentPoster)
-    }
-  }
-  var posterGrid = document.querySelector('.saved-posters-grid')
 
-  posterGrid.innerHTML += `
-    <div class="mini-poster">
-    <img src="${currentPoster.imageURL}" alt="nothin' to see here">
-    <h2>${currentPoster.title}</h2>
-    <h4>${currentPoster.quote}</h4>
-    </div>`
+      console.log(savedPosters)
+      console.log(currentPoster.id)
+
+      // posterGrid.innerHTML += `
+      // <article class="mini-poster">
+      // <img src="${savedPosters[0].imageURL}" alt="poster image">
+      // <h2>${savedPosters[0].title}</h2>
+      // <h4>${savedPosters[0].quote}</h4>
+      // </article>
+      // `
+
+    }
+    return savedPosters
 })
 
 // functions and event handlers go here 👇
