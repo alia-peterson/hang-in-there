@@ -1,6 +1,9 @@
 # Hang In There
 
-A boilerplate repo. 
+Current issues to solve: 
+-Still able to save duplicate posters.
+-Saving posters doesn't use savedPosters array.
+-When an input form on the Make My Own Poster page is blank it can push an empty string to an array. 
 
 ## Set Up
 
