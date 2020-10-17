@@ -117,8 +117,6 @@ var mainQuote = document.querySelector('.poster-quote')
 
 var posterGrid = document.querySelector('.saved-posters-grid')
 
-var miniPosters = document.querySelectorAll('.mini-poster')
-
 // event listeners go here 👇
 window.addEventListener('load', function() {
   randomPoster()
@@ -166,17 +164,33 @@ showSavedPostersButton.addEventListener('click', function() {
     <h4>${savedPosters[i].quote}</h4>
     </article>
     `
-    var thisPoster = document.getElementById(`${savedPosters[i].id}`)
-    thisPoster.addEventListener('click', function() {
-        console.log('Heyyyy')
-      })
   }
-  // for (var button of miniPosters) {
-  //   button.addEventListener('click', function(event) {
-  //     console.log('Heyyyy')
-  //   })
-})
+  var miniPosters = document.querySelectorAll('.mini-poster')
 
+  for (var i = 0; i < miniPosters.length; i++) {
+    miniPosters[i].addEventListener('dblclick', function() {
+        var thisPosterID
+
+        if (event.target.id){
+          thisPosterID = event.target.id
+        } else {
+          thisPosterID = event.target.parentElement.id
+        }
+
+        for (var i = 0; i < savedPosters.length; i++) {
+          if (savedPosters[i].id == thisPosterID){
+            savedPosters.splice(i, 1)
+          }
+        }
+
+        if (event.target.classList === 'mini-poster') {
+          event.target.classList.add('hidden')
+        } else {
+          event.target.parentElement.classList.add('hidden')
+        }
+    })
+  }
+})
 
 saveThisPosterButton.addEventListener('click', function() {
     if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
