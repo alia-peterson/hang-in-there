@@ -116,9 +116,8 @@ var mainImageURL = document.querySelector('.poster-img')
 var mainQuote = document.querySelector('.poster-quote')
 
 var posterGrid = document.querySelector('.saved-posters-grid')
-// var displaySavedPosters = document.createElement('article')
-//
-// posterGrid.appendChild(displaySavedPosters('h2'))
+
+var miniPosters = document.querySelectorAll('.mini-poster')
 
 // event listeners go here 👇
 window.addEventListener('load', function() {
@@ -155,17 +154,27 @@ backToMainButton.addEventListener('click', function() {
   posterGrid.innerHTML = ``
 })
 
+
+
 showSavedPostersButton.addEventListener('click', function() {
   savedPostersToggle()
   for (var i = 0; i < savedPosters.length; i++) {
     posterGrid.innerHTML += `
-    <article class="mini-poster">
+    <article class="mini-poster" id=${savedPosters[i].id}>
     <img src="${savedPosters[i].imageURL}" alt="poster image">
     <h2>${savedPosters[i].title}</h2>
     <h4>${savedPosters[i].quote}</h4>
     </article>
     `
+    var thisPoster = document.getElementById(`${savedPosters[i].id}`)
+    thisPoster.addEventListener('click', function() {
+        console.log('Heyyyy')
+      })
   }
+  // for (var button of miniPosters) {
+  //   button.addEventListener('click', function(event) {
+  //     console.log('Heyyyy')
+  //   })
 })
 
 
