@@ -166,15 +166,14 @@ showSavedPostersButton.addEventListener('click', function() {
     <h4>${savedPosters[i].quote}</h4>
     </article>
     `
-    var thisPoster = document.getElementById(`${savedPosters[i].id}`)
-    thisPoster.addEventListener('click', function() {
+  }
+  miniPosters = document.querySelectorAll('.mini-poster')
+
+  for (var i = 0; i < miniPosters.length; i++) {
+    miniPosters[i].addEventListener('click', function(event) {
         console.log('Heyyyy')
       })
   }
-  // for (var button of miniPosters) {
-  //   button.addEventListener('click', function(event) {
-  //     console.log('Heyyyy')
-  //   })
 })
 
 
