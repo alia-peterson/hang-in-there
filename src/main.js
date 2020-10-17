@@ -117,8 +117,6 @@ var mainQuote = document.querySelector('.poster-quote')
 
 var posterGrid = document.querySelector('.saved-posters-grid')
 
-var miniPosters = document.querySelectorAll('.mini-poster')
-
 // event listeners go here 👇
 window.addEventListener('load', function() {
   randomPoster()
@@ -167,15 +165,32 @@ showSavedPostersButton.addEventListener('click', function() {
     </article>
     `
   }
-  miniPosters = document.querySelectorAll('.mini-poster')
+  var miniPosters = document.querySelectorAll('.mini-poster')
 
   for (var i = 0; i < miniPosters.length; i++) {
-    miniPosters[i].addEventListener('click', function(event) {
-        console.log('Heyyyy')
-      })
+    miniPosters[i].addEventListener('dblclick', function() {
+        var thisPosterID
+
+        if (event.target.id){
+          thisPosterID = event.target.id
+        } else {
+          thisPosterID = event.target.parentElement.id
+        }
+
+        for (var i = 0; i < savedPosters.length; i++) {
+          if (savedPosters[i].id == thisPosterID){
+            savedPosters.splice(i, 1)
+          }
+        }
+
+        if (event.target.classList === 'mini-poster') {
+          event.target.classList.add('hidden')
+        } else {
+          event.target.parentElement.classList.add('hidden')
+        }
+    })
   }
 })
-
 
 saveThisPosterButton.addEventListener('click', function() {
     if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
