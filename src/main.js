@@ -133,23 +133,27 @@ randomPosterButton.addEventListener('click', function() {
 })
 
 showMyPosterButton.addEventListener('click', function() {
+  event.preventDefault()
+
   var userImageURL = document.getElementById('poster-image-url').value
   var userTitle = document.getElementById('poster-title').value
   var userQuote = document.getElementById('poster-quote').value
 
-  images.push(userImageURL)
-  titles.push(userTitle)
-  quotes.push(userQuote)
+  if (validateForm(userImageURL, userTitle, userQuote)) {
+    images.push(userImageURL)
+    titles.push(userTitle)
+    quotes.push(userQuote)
 
-  currentPoster = new Poster(userImageURL, userTitle, userQuote)
+    currentPoster = new Poster(userImageURL, userTitle, userQuote)
 
-  event.preventDefault()
-  displayPoster()
-  switchScreens(mainPosterView, posterFormView)
+    displayPoster()
+    switchScreens(mainPosterView, posterFormView)
+  }
 })
 
 posterFormButton.addEventListener('click', function() {
   switchScreens(mainPosterView, posterFormView)
+  //document.getElementById('poster-title').setAttribute('required')
 })
 
 posterFormBackButton.addEventListener('click', function() {
@@ -230,12 +234,13 @@ function switchScreens(mainView, alternateView) {
   alternateView.classList.toggle('hidden')
 }
 
-// function posterFormToggle() {
-//   document.querySelector('.main-poster').classList.toggle('hidden')
-//   document.querySelector('.poster-form').classList.toggle('hidden')
-// }
-
-// function savedPostersToggle() {
-//   document.querySelector('.main-poster').classList.toggle('hidden')
-//   document.querySelector('.saved-posters').classList.toggle('hidden')
-// }
+function validateForm(userImageURL, userTitle, userQuote) {
+  if (!userImageURL || !userTitle || !userQuote) {
+    alert('All fields must be filled out')
+    return false
+  } else if (!userImageURL.includes('jpeg') && !userImageURL.includes('png') && !userImageURL.includes('gif') && !userImageURL.includes('jpg')) {
+    alert('Not a valid image url')
+    return false
+  }
+  return true
+}
