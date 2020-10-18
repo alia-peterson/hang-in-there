@@ -111,6 +111,10 @@ var showSavedPostersButton = document.querySelector('.show-saved')
 var backToMainButton = document.querySelector('.back-to-main')
 var showMyPosterButton = document.querySelector('.make-poster')
 
+var posterFormView = document.querySelector('.poster-form')
+var savedPostersView = document.querySelector('.saved-posters')
+var mainPosterView = document.querySelector('.main-poster')
+
 var mainTitle = document.querySelector('.poster-title')
 var mainImageURL = document.querySelector('.poster-img')
 var mainQuote = document.querySelector('.poster-quote')
@@ -141,21 +145,22 @@ showMyPosterButton.addEventListener('click', function() {
 
   event.preventDefault()
   displayPoster()
-  posterFormToggle()
+  switchScreens(mainPosterView, savedPostersView)
 })
 
-posterFormButton.addEventListener('click', posterFormToggle)
-posterFormBackButton.addEventListener('click', posterFormToggle)
+posterFormButton.addEventListener('click', function() {
+  switchScreens(mainPosterView, posterFormView)})
+
+posterFormBackButton.addEventListener('click', function() {
+  switchScreens(mainPosterView, posterFormView)})
 
 backToMainButton.addEventListener('click', function() {
-  savedPostersToggle()
+  switchScreens(mainPosterView, savedPostersView)
   posterGrid.innerHTML = ``
 })
 
-
-
 showSavedPostersButton.addEventListener('click', function() {
-  savedPostersToggle()
+  switchScreens(mainPosterView, savedPostersView)
   for (var i = 0; i < savedPosters.length; i++) {
     posterGrid.innerHTML += `
     <article class="mini-poster" id=${savedPosters[i].id}>
@@ -218,12 +223,7 @@ function randomPoster() {
   currentPoster = new Poster(imageURL, title, quote)
 }
 
-function posterFormToggle() {
-  document.querySelector('.main-poster').classList.toggle('hidden')
-  document.querySelector('.poster-form').classList.toggle('hidden')
-}
-
-function savedPostersToggle() {
-  document.querySelector('.main-poster').classList.toggle('hidden')
-  document.querySelector('.saved-posters').classList.toggle('hidden')
+function switchScreens(mainScreen, alternateScreen) {
+  mainPosterView.classList.toggle('hidden')
+  alternateScreen.classList.toggle('hidden')
 }
