@@ -127,6 +127,18 @@ window.addEventListener('load', function() {
   displayPoster()
 })
 
+// mainPosterView.addEventListener('click', function() {
+//   if (event.target.classList === 'poster-title') {
+//     currentPoster.title = titles[getRandomIndex(titles)]
+//   }
+// })
+
+// mainTitle.addEventListener('click', function() {
+//   if (event.target === mainTitle) {
+//     currentPoster.title = titles[getRandomIndex(titles)]
+//   }
+// })
+
 randomPosterButton.addEventListener('click', function() {
   randomPoster()
   displayPoster()
@@ -175,31 +187,7 @@ showSavedPostersButton.addEventListener('click', function() {
     <h4>${savedPosters[i].quote}</h4>
     </article>
     `
-  }
-  var miniPosters = document.querySelectorAll('.mini-poster')
-
-  for (var i = 0; i < miniPosters.length; i++) {
-    miniPosters[i].addEventListener('dblclick', function() {
-        var thisPosterID
-
-        if (event.target.id){
-          thisPosterID = event.target.id
-        } else {
-          thisPosterID = event.target.parentElement.id
-        }
-
-        for (var i = 0; i < savedPosters.length; i++) {
-          if (savedPosters[i].id == thisPosterID){
-            savedPosters.splice(i, 1)
-          }
-        }
-
-        if (event.target.classList === 'mini-poster') {
-          event.target.classList.add('hidden')
-        } else {
-          event.target.parentElement.classList.add('hidden')
-        }
-    })
+    deleteMiniPoster()
   }
 })
 
@@ -232,6 +220,34 @@ function randomPoster() {
 function switchScreens(mainView, alternateView) {
   mainView.classList.toggle('hidden')
   alternateView.classList.toggle('hidden')
+}
+
+function deleteMiniPoster() {
+  var miniPosters = document.querySelectorAll('.mini-poster')
+
+  for (var i = 0; i < miniPosters.length; i++) {
+    miniPosters[i].addEventListener('dblclick', function() {
+        var thisPosterID
+
+        if (event.target.id){
+          thisPosterID = event.target.id
+        } else {
+          thisPosterID = event.target.parentElement.id
+        }
+
+        for (var i = 0; i < savedPosters.length; i++) {
+          if (savedPosters[i].id == thisPosterID){
+            savedPosters.splice(i, 1)
+          }
+        }
+
+        if (event.target.classList === 'mini-poster') {
+          event.target.classList.add('hidden')
+        } else {
+          event.target.parentElement.classList.add('hidden')
+        }
+    })
+  }
 }
 
 function validateForm(userImageURL, userTitle, userQuote) {
