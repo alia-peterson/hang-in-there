@@ -1,4 +1,21 @@
 // query selector variables go here 👇
+var randomPosterButton = document.querySelector('.show-random')
+var posterFormButton = document.querySelector('.show-form')
+var posterFormBackButton = document.querySelector('.show-main')
+var saveThisPosterButton = document.querySelector('.save-poster')
+var showSavedPostersButton = document.querySelector('.show-saved')
+var backToMainButton = document.querySelector('.back-to-main')
+var showMyPosterButton = document.querySelector('.make-poster')
+
+var mainTitle = document.querySelector('.poster-title')
+var mainImageURL = document.querySelector('.poster-img')
+var mainQuote = document.querySelector('.poster-quote')
+
+var mainPosterView = document.querySelector('.main-poster')
+var posterFormView = document.querySelector('.poster-form')
+var savedPostersView = document.querySelector('.saved-posters')
+
+var posterGrid = document.querySelector('.saved-posters-grid')
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -102,25 +119,6 @@ var quotes = [
 var savedPosters = []
 var currentPoster
 
-// query selector variables - move to top of page when done!
-var randomPosterButton = document.querySelector('.show-random')
-var posterFormButton = document.querySelector('.show-form')
-var posterFormBackButton = document.querySelector('.show-main')
-var saveThisPosterButton = document.querySelector('.save-poster')
-var showSavedPostersButton = document.querySelector('.show-saved')
-var backToMainButton = document.querySelector('.back-to-main')
-var showMyPosterButton = document.querySelector('.make-poster')
-
-var mainTitle = document.querySelector('.poster-title')
-var mainImageURL = document.querySelector('.poster-img')
-var mainQuote = document.querySelector('.poster-quote')
-
-var mainPosterView = document.querySelector('.main-poster')
-var posterFormView = document.querySelector('.poster-form')
-var savedPostersView = document.querySelector('.saved-posters')
-
-var posterGrid = document.querySelector('.saved-posters-grid')
-
 // event listeners go here 👇
 window.addEventListener('load', function() {
   randomPoster()
@@ -133,19 +131,22 @@ randomPosterButton.addEventListener('click', function() {
 })
 
 showMyPosterButton.addEventListener('click', function() {
+  event.preventDefault()
+
   var userImageURL = document.getElementById('poster-image-url').value
   var userTitle = document.getElementById('poster-title').value
   var userQuote = document.getElementById('poster-quote').value
 
-  images.push(userImageURL)
-  titles.push(userTitle)
-  quotes.push(userQuote)
+  if (validateForm(userImageURL, userTitle, userQuote)) {
+    images.push(userImageURL)
+    titles.push(userTitle)
+    quotes.push(userQuote)
 
-  currentPoster = new Poster(userImageURL, userTitle, userQuote)
+    currentPoster = new Poster(userImageURL, userTitle, userQuote)
 
-  event.preventDefault()
-  displayPoster()
-  switchScreens(mainPosterView, posterFormView)
+    displayPoster()
+    switchScreens(mainPosterView, posterFormView)
+  }
 })
 
 posterFormButton.addEventListener('click', function() {
@@ -171,31 +172,7 @@ showSavedPostersButton.addEventListener('click', function() {
     <h4>${savedPosters[i].quote}</h4>
     </article>
     `
-  }
-  var miniPosters = document.querySelectorAll('.mini-poster')
-
-  for (var i = 0; i < miniPosters.length; i++) {
-    miniPosters[i].addEventListener('dblclick', function() {
-        var thisPosterID
-
-        if (event.target.id){
-          thisPosterID = event.target.id
-        } else {
-          thisPosterID = event.target.parentElement.id
-        }
-
-        for (var i = 0; i < savedPosters.length; i++) {
-          if (savedPosters[i].id == thisPosterID){
-            savedPosters.splice(i, 1)
-          }
-        }
-
-        if (event.target.classList === 'mini-poster') {
-          event.target.classList.add('hidden')
-        } else {
-          event.target.parentElement.classList.add('hidden')
-        }
-    })
+    deleteMiniPoster()
   }
 })
 
@@ -230,12 +207,45 @@ function switchScreens(mainView, alternateView) {
   alternateView.classList.toggle('hidden')
 }
 
-// function posterFormToggle() {
-//   document.querySelector('.main-poster').classList.toggle('hidden')
-//   document.querySelector('.poster-form').classList.toggle('hidden')
-// }
+// created new function for adding event listeners to each mini poster and
+// for deleting mini posters
+function deleteMiniPoster() {
+  var miniPosters = document.querySelectorAll('.mini-poster')
 
-// function savedPostersToggle() {
-//   document.querySelector('.main-poster').classList.toggle('hidden')
-//   document.querySelector('.saved-posters').classList.toggle('hidden')
-// }
+  for (var i = 0; i < miniPosters.length; i++) {
+    miniPosters[i].addEventListener('dblclick', function() {
+      var thisPosterID
+
+      if (event.target.id){
+        thisPosterID = event.target.id
+      } else {
+        thisPosterID = event.target.parentElement.id
+      }
+
+      for (var i = 0; i < savedPosters.length; i++) {
+        if (savedPosters[i].id == thisPosterID){
+          savedPosters.splice(i, 1)
+        }
+      }
+
+      if (event.target.classList === 'mini-poster') {
+        event.target.classList.add('hidden')
+      } else {
+        event.target.parentElement.classList.add('hidden')
+      }
+    })
+  }
+}
+
+// created this function to ensure that all input fields have information in
+// them before allowing a poster to be created
+function validateForm(userImageURL, userTitle, userQuote) {
+  if (!userImageURL || !userTitle || !userQuote) {
+    alert('All fields must be filled out')
+    return false
+  } else if (!userImageURL.includes('jpeg') && !userImageURL.includes('png') && !userImageURL.includes('gif') && !userImageURL.includes('jpg')) {
+    alert('Not a valid image url')
+    return false
+  }
+  return true
+}
