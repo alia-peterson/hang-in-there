@@ -124,7 +124,7 @@ window.addEventListener('load', displayRandomPoster)
 
 randomPosterButton.addEventListener('click', displayRandomPoster)
 
-mainPosterView.addEventListener('click', randomizeElement)
+mainPosterView.addEventListener('click', randomizePosterFeature)
 
 showMyPosterButton.addEventListener('click', function() {
   event.preventDefault()
@@ -209,26 +209,24 @@ function createCustomPoster() {
   }
 }
 
-function deleteMiniPoster() {
-  var thisPosterID
-
+function fetchPosterID() {
   if (event.target.id){
-    thisPosterID = event.target.id
+    return event.target.id
   } else {
-    thisPosterID = event.target.parentElement.id
+    return event.target.parentElement.id
   }
+}
 
-  for (var j = 0; j < savedPosters.length; j++) {
-    if (savedPosters[j].id == thisPosterID){
-      savedPosters.splice(j, 1)
+function deleteMiniPoster() {
+  var thisPosterID = fetchPosterID()
+
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i].id == thisPosterID){
+      savedPosters.splice(i, 1)
     }
   }
-
-  if (event.target.classList.contains('mini-poster')) {
-    event.target.classList.add('hidden')
-  } else {
-    event.target.parentElement.classList.add('hidden')
-  }
+  insertSavedPosterHTML()
+  addMiniPosterListener()
 }
 
 function insertSavedPosterHTML() {
@@ -246,16 +244,16 @@ function insertSavedPosterHTML() {
 
 function validateForm(userImageURL, userTitle, userQuote) {
   if (!userImageURL || !userTitle || !userQuote) {
-    alert('All fields must be filled out')
+    alert('Please fill out all fields before submitting form.')
     return false
   } else if (!userImageURL.includes('jpeg') && !userImageURL.includes('png') && !userImageURL.includes('gif') && !userImageURL.includes('jpg')) {
-    alert('Please enter a valid image URL\nFile type must be .jpeg, .jpg, .png, or .gif')
+    alert('Please enter a valid image URL.\nFile type must be jpeg, jpg, png, or gif.')
     return false
   }
   return true
 }
 
-function randomizeElement() {
+function randomizePosterFeature() {
   var randomImageURL = images[getRandomIndex(images)]
   var randomTitle = titles[getRandomIndex(titles)]
   var randomQuote = quotes[getRandomIndex(quotes)]
