@@ -121,12 +121,12 @@ var currentPoster
 
 // event listeners go here 👇
 window.addEventListener('load', function() {
-  randomPoster()
+  randomizePoster()
   displayPoster()
 })
 
 randomPosterButton.addEventListener('click', function() {
-  randomPoster()
+  randomizePoster()
   displayPoster()
 })
 
@@ -164,22 +164,14 @@ backToMainButton.addEventListener('click', function() {
 
 showSavedPostersButton.addEventListener('click', function() {
   switchScreens(mainPosterView, savedPostersView)
-  for (var i = 0; i < savedPosters.length; i++) {
-    posterGrid.innerHTML += `
-    <article class="mini-poster" id=${savedPosters[i].id}>
-    <img src="${savedPosters[i].imageURL}" alt="poster image">
-    <h2>${savedPosters[i].title}</h2>
-    <h4>${savedPosters[i].quote}</h4>
-    </article>
-    `
-    deleteMiniPoster()
-  }
+  insertSavedPosterHTML()
+  addMiniPosterListener()
 })
 
 saveThisPosterButton.addEventListener('click', function() {
-    if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
-      savedPosters.push(currentPoster)
-    }
+  if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
+    savedPosters.push(currentPoster)
+  }
 })
 
 // functions and event handlers go here 👇
@@ -194,7 +186,7 @@ function displayPoster() {
   mainQuote.innerText = currentPoster.quote
 }
 
-function randomPoster() {
+function randomizePoster() {
   var imageURL = images[getRandomIndex(images)]
   var title = titles[getRandomIndex(titles)]
   var quote = quotes[getRandomIndex(quotes)]
@@ -209,34 +201,47 @@ function switchScreens(mainView, alternateView) {
 
 // created new function for adding event listeners to each mini poster and
 // for deleting mini posters
-function deleteMiniPoster() {
+function addMiniPosterListener() {
   var miniPosters = document.querySelectorAll('.mini-poster')
 
   for (var i = 0; i < miniPosters.length; i++) {
-    miniPosters[i].addEventListener('dblclick', function() {
-      var thisPosterID
-
-      if (event.target.id){
-        thisPosterID = event.target.id
-      } else {
-        thisPosterID = event.target.parentElement.id
-      }
-
-      for (var i = 0; i < savedPosters.length; i++) {
-        if (savedPosters[i].id == thisPosterID){
-          savedPosters.splice(i, 1)
-        }
-      }
-
-      if (event.target.classList === 'mini-poster') {
-        event.target.classList.add('hidden')
-      } else {
-        event.target.parentElement.classList.add('hidden')
-      }
-    })
+    miniPosters[i].addEventListener('dblclick', deleteMiniPoster)
   }
 }
 
+function deleteMiniPoster() {
+  var thisPosterID
+
+  if (event.target.id){
+    thisPosterID = event.target.id
+  } else {
+    thisPosterID = event.target.parentElement.id
+  }
+
+  for (var j = 0; j < savedPosters.length; j++) {
+    if (savedPosters[j].id == thisPosterID){
+      savedPosters.splice(j, 1)
+    }
+  }
+
+  if (event.target.classList.contains('mini-poster')) {
+    event.target.classList.add('hidden')
+  } else {
+    event.target.parentElement.classList.add('hidden')
+  }
+}
+
+function insertSavedPosterHTML() {
+  for (var i = 0; i < savedPosters.length; i++) {
+    posterGrid.innerHTML += `
+    <article class="mini-poster" id=${savedPosters[i].id}>
+    <img src="${savedPosters[i].imageURL}" alt="poster image">
+    <h2>${savedPosters[i].title}</h2>
+    <h4>${savedPosters[i].quote}</h4>
+    </article>
+    `
+  }
+}
 // created this function to ensure that all input fields have information in
 // them before allowing a poster to be created
 function validateForm(userImageURL, userTitle, userQuote) {
@@ -244,7 +249,7 @@ function validateForm(userImageURL, userTitle, userQuote) {
     alert('All fields must be filled out')
     return false
   } else if (!userImageURL.includes('jpeg') && !userImageURL.includes('png') && !userImageURL.includes('gif') && !userImageURL.includes('jpg')) {
-    alert('Not a valid image url')
+    alert('Please enter a valid image URL\nFile type must be .jpeg, .jpg, .png, or .gif')
     return false
   }
   return true
