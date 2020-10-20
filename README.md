@@ -1,8 +1,8 @@
-#Hang In There
+# Hang In There
 
-This is a site that creates 2000s era motivational posters. The user can combine images, titles, and quotes either at random or of their own choosing. This is a simple site that uses vanilla JavaScript, HTML, and CSS. You can view Hang in There [here](https://alia-peterson.github.io/hang-in-there/).
+This is a website that creates 2000s era motivational posters. The user can combine images, titles, and quotes either at random or of their own choosing. This is a simple site that uses vanilla JavaScript, HTML, and CSS. You can visit Hang in There [here](https://alia-peterson.github.io/hang-in-there/).
 
-## Why did we make this?
+## Why did you make this?
 
 Good question. We’re students at the [Turing School of Software of Software and Design](https://turing.io/), and this is a site we built from a boilerplate for a class project. If you’re not one of our instructors we’re not sure why you’re looking at this but we hope you have fun!
 
@@ -17,12 +17,12 @@ When you first visit Hang in There you’ll see a random poster with an image, t
 
 ![screenshot of main page showing poster](/readme-imgs/homepage.png)
 
-If you click the Make Your Own Poster button you’ll see a form that lets you - you guessed it - make your own poster. If you enter an image URL, title, and quote, you can view your custom poster by clicking the Show My Poster button. If any field is left blank, an alert message will indicate that all fields must be filled out before the poster can be created. The form only accepts images of the following file types: .jpeg, .jpg, .png, or .gif. An alert message will display when an image URL does not reference one of those file types.
+If you click the Make Your Own Poster button you’ll see a form that lets you - you guessed it - make your own poster. If you enter an image URL, title, and quote, you can view your custom poster by clicking the Show My Poster button. If any field is left blank, an alert message will indicate that all fields must be filled out before the poster can be created. The form only accepts images of the following file types: `.jpeg`, `.jpg`, `.png`, or `.gif`. An alert message will display when an image URL does not reference one of those file types.
 
 ![screenshot of form](/readme-imgs/form.png)
 ![screenshot of result](/readme-imgs/form-result.png)
 
-If you like any of your posters you can save them with the Save This Poster button. You can click on the Show Saved Poster button to see everything you’ve saved. If you decide you don’t like one anymore, double click it to delete it. Note that each poster can only be saved once.
+If you like any of your posters you can save them with the Save This Poster button. You can click on the Show Saved Poster button to see everything you’ve saved. If you decide you don’t like one anymore, double click on that poster to delete it. Note that each poster can only be saved once.
 
 ![screenshot of saved posters page](/readme-imgs/saved.png)
 
