@@ -120,19 +120,80 @@ var savedPosters = []
 var currentPoster
 
 // event listeners go here 👇
-window.addEventListener('load', function() {
-  randomPoster()
-  displayPoster()
-})
+window.addEventListener('load', displayRandomPoster)
 
-randomPosterButton.addEventListener('click', function() {
-  randomPoster()
-  displayPoster()
-})
+randomPosterButton.addEventListener('click', displayRandomPoster)
 
 showMyPosterButton.addEventListener('click', function() {
   event.preventDefault()
+  createCustomPoster()
+  displayPoster()
+  switchViewPosterForm()
+})
 
+posterFormButton.addEventListener('click', switchViewPosterForm)
+
+posterFormBackButton.addEventListener('click', switchViewPosterForm)
+
+backToMainButton.addEventListener('click', switchViewSavedPosters)
+
+showSavedPostersButton.addEventListener('click', function() {
+  switchViewSavedPosters()
+  insertSavedPosterHTML()
+  addMiniPosterListener()
+})
+
+saveThisPosterButton.addEventListener('click', savePoster)
+
+// functions and event handlers go here 👇
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length)
+}
+
+function displayRandomPoster() {
+  randomizePoster()
+  displayPoster()
+}
+
+function displayPoster() {
+  mainImageURL.src = currentPoster.imageURL
+  mainTitle.innerText = currentPoster.title
+  mainQuote.innerText = currentPoster.quote
+}
+
+function randomizePoster() {
+  var imageURL = images[getRandomIndex(images)]
+  var title = titles[getRandomIndex(titles)]
+  var quote = quotes[getRandomIndex(quotes)]
+
+  currentPoster = new Poster(imageURL, title, quote)
+}
+
+function savePoster() {
+  if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
+    savedPosters.push(currentPoster)
+  }
+}
+
+function switchViewSavedPosters() {
+  mainPosterView.classList.toggle('hidden')
+  savedPostersView.classList.toggle('hidden')
+}
+
+function switchViewPosterForm() {
+  mainPosterView.classList.toggle('hidden')
+  posterFormView.classList.toggle('hidden')
+}
+
+function addMiniPosterListener() {
+  var miniPosters = document.querySelectorAll('.mini-poster')
+
+  for (var i = 0; i < miniPosters.length; i++) {
+    miniPosters[i].addEventListener('dblclick', deleteMiniPoster)
+  }
+}
+
+function createCustomPoster() {
   var userImageURL = document.getElementById('poster-image-url').value
   var userTitle = document.getElementById('poster-title').value
   var userQuote = document.getElementById('poster-quote').value
@@ -143,27 +204,33 @@ showMyPosterButton.addEventListener('click', function() {
     quotes.push(userQuote)
 
     currentPoster = new Poster(userImageURL, userTitle, userQuote)
-
-    displayPoster()
-    switchScreens(mainPosterView, posterFormView)
   }
-})
+}
 
-posterFormButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, posterFormView)
-})
+function deleteMiniPoster() {
+  var thisPosterID
 
-posterFormBackButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, posterFormView)
-})
+  if (event.target.id){
+    thisPosterID = event.target.id
+  } else {
+    thisPosterID = event.target.parentElement.id
+  }
 
-backToMainButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, savedPostersView)
+  for (var j = 0; j < savedPosters.length; j++) {
+    if (savedPosters[j].id == thisPosterID){
+      savedPosters.splice(j, 1)
+    }
+  }
+
+  if (event.target.classList.contains('mini-poster')) {
+    event.target.classList.add('hidden')
+  } else {
+    event.target.parentElement.classList.add('hidden')
+  }
+}
+
+function insertSavedPosterHTML() {
   posterGrid.innerHTML = ``
-})
-
-showSavedPostersButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, savedPostersView)
   for (var i = 0; i < savedPosters.length; i++) {
     posterGrid.innerHTML += `
     <article class="mini-poster" id=${savedPosters[i].id}>
@@ -172,79 +239,15 @@ showSavedPostersButton.addEventListener('click', function() {
     <h4>${savedPosters[i].quote}</h4>
     </article>
     `
-    deleteMiniPoster()
-  }
-})
-
-saveThisPosterButton.addEventListener('click', function() {
-    if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
-      savedPosters.push(currentPoster)
-    }
-})
-
-// functions and event handlers go here 👇
-// (we've provided one for you to get you started)!
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length)
-}
-
-function displayPoster() {
-  mainImageURL.src = currentPoster.imageURL
-  mainTitle.innerText = currentPoster.title
-  mainQuote.innerText = currentPoster.quote
-}
-
-function randomPoster() {
-  var imageURL = images[getRandomIndex(images)]
-  var title = titles[getRandomIndex(titles)]
-  var quote = quotes[getRandomIndex(quotes)]
-
-  currentPoster = new Poster(imageURL, title, quote)
-}
-
-function switchScreens(mainView, alternateView) {
-  mainView.classList.toggle('hidden')
-  alternateView.classList.toggle('hidden')
-}
-
-// created new function for adding event listeners to each mini poster and
-// for deleting mini posters
-function deleteMiniPoster() {
-  var miniPosters = document.querySelectorAll('.mini-poster')
-
-  for (var i = 0; i < miniPosters.length; i++) {
-    miniPosters[i].addEventListener('dblclick', function() {
-      var thisPosterID
-
-      if (event.target.id){
-        thisPosterID = event.target.id
-      } else {
-        thisPosterID = event.target.parentElement.id
-      }
-
-      for (var i = 0; i < savedPosters.length; i++) {
-        if (savedPosters[i].id == thisPosterID){
-          savedPosters.splice(i, 1)
-        }
-      }
-
-      if (event.target.classList === 'mini-poster') {
-        event.target.classList.add('hidden')
-      } else {
-        event.target.parentElement.classList.add('hidden')
-      }
-    })
   }
 }
 
-// created this function to ensure that all input fields have information in
-// them before allowing a poster to be created
 function validateForm(userImageURL, userTitle, userQuote) {
   if (!userImageURL || !userTitle || !userQuote) {
     alert('All fields must be filled out')
     return false
   } else if (!userImageURL.includes('jpeg') && !userImageURL.includes('png') && !userImageURL.includes('gif') && !userImageURL.includes('jpg')) {
-    alert('Not a valid image url')
+    alert('Please enter a valid image URL\nFile type must be .jpeg, .jpg, .png, or .gif')
     return false
   }
   return true
