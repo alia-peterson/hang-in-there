@@ -120,33 +120,15 @@ var savedPosters = []
 var currentPoster
 
 // event listeners go here 👇
-window.addEventListener('load', function() {
-  randomizePoster()
-  displayPoster()
-})
+window.addEventListener('load', displayRandomPoster)
 
-randomPosterButton.addEventListener('click', function() {
-  randomizePoster()
-  displayPoster()
-})
+randomPosterButton.addEventListener('click', displayRandomPoster)
 
 showMyPosterButton.addEventListener('click', function() {
   event.preventDefault()
-
-  var userImageURL = document.getElementById('poster-image-url').value
-  var userTitle = document.getElementById('poster-title').value
-  var userQuote = document.getElementById('poster-quote').value
-
-  if (validateForm(userImageURL, userTitle, userQuote)) {
-    images.push(userImageURL)
-    titles.push(userTitle)
-    quotes.push(userQuote)
-
-    currentPoster = new Poster(userImageURL, userTitle, userQuote)
-
-    displayPoster()
-    switchViewPosterForm()
-  }
+  createCustomPoster()
+  displayPoster()
+  switchViewPosterForm()
 })
 
 posterFormButton.addEventListener('click', switchViewPosterForm)
@@ -161,16 +143,16 @@ showSavedPostersButton.addEventListener('click', function() {
   addMiniPosterListener()
 })
 
-saveThisPosterButton.addEventListener('click', function() {
-  if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
-    savedPosters.push(currentPoster)
-  }
-})
+saveThisPosterButton.addEventListener('click', savePoster)
 
 // functions and event handlers go here 👇
-// (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length)
+}
+
+function displayRandomPoster() {
+  randomizePoster()
+  displayPoster()
 }
 
 function displayPoster() {
@@ -187,6 +169,12 @@ function randomizePoster() {
   currentPoster = new Poster(imageURL, title, quote)
 }
 
+function savePoster() {
+  if (savedPosters.length === 0 || (savedPosters[savedPosters.length - 1].id !== currentPoster.id)) {
+    savedPosters.push(currentPoster)
+  }
+}
+
 function switchViewSavedPosters() {
   mainPosterView.classList.toggle('hidden')
   savedPostersView.classList.toggle('hidden')
@@ -197,13 +185,25 @@ function switchViewPosterForm() {
   posterFormView.classList.toggle('hidden')
 }
 
-// created new function for adding event listeners to each mini poster and
-// for deleting mini posters
 function addMiniPosterListener() {
   var miniPosters = document.querySelectorAll('.mini-poster')
 
   for (var i = 0; i < miniPosters.length; i++) {
     miniPosters[i].addEventListener('dblclick', deleteMiniPoster)
+  }
+}
+
+function createCustomPoster() {
+  var userImageURL = document.getElementById('poster-image-url').value
+  var userTitle = document.getElementById('poster-title').value
+  var userQuote = document.getElementById('poster-quote').value
+
+  if (validateForm(userImageURL, userTitle, userQuote)) {
+    images.push(userImageURL)
+    titles.push(userTitle)
+    quotes.push(userQuote)
+
+    currentPoster = new Poster(userImageURL, userTitle, userQuote)
   }
 }
 
@@ -241,8 +241,7 @@ function insertSavedPosterHTML() {
     `
   }
 }
-// created this function to ensure that all input fields have information in
-// them before allowing a poster to be created
+
 function validateForm(userImageURL, userTitle, userQuote) {
   if (!userImageURL || !userTitle || !userQuote) {
     alert('All fields must be filled out')
