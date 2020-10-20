@@ -1,82 +1,32 @@
 # Hang In There
 
-Current issues to solve: 
--Still able to save duplicate posters.
--Saving posters doesn't use savedPosters array.
--When an input form on the Make My Own Poster page is blank it can push an empty string to an array. 
+This is a site that creates 2000s era motivational posters. The user can combine images, titles, and quotes either at random or of their own choosing. This is a simple site that uses vanilla JavaScript, HTML, and CSS.
 
-## Set Up
+## Why did we make this?
 
-1. One teammate: fork this repository
-2. Go to settings and turn on GitHub Pages for this repository
-3. All teammates: clone down this repository
-4. `cd` into the repository
-5. Run `open index.html` to view it in the browser
+Good question. We’re students at the Turing School of Software of Software and Design, and this is a site we built from a boilerplate for a class project. If you’re not one of our instructors we’re not sure why you’re looking at this but we hope you have fun!
 
-## Progression
+## Wait who are you?
 
-### Iteration 0 - Main Page
+Alia Peterson, Cole Fiscus, and Boone Epstein. But note that we only wrote (most of) the main.js file! Instructors at the Turing School built the HTML, CSS, and poster.js files, and also provided us with arrays to use for the randomization, as well as a couple initial functions.
+
+
+## Features
 
 ![screenshot of main page showing poster](/readme-imgs/homepage.png)
 
-- When the page loads, we should see a poster with a randomly selected image, title, and quote
+When you first visit Hang in There you’ll see a random poster with an image, title, and quote selected from our own arrays. If you click the Show Another Random Poster button, you’ll see exactly that: a new random poster. You can also click on any individual element of the poster (the title, image, or quote) to randomize just that element.
 
-### Iteration 1 - Switching Views
-
-Form page:
 ![screenshot of form](/readme-imgs/form.png)
-
-Saved posters page (once working with extra saved posters):
-![screenshot of saved posters page](/readme-imgs/saved.png)
-
-- When a user clicks the "Make Your Own Poster" button, we should see the form, and the main poster should be hidden
-- When a user clicks the "View Saved Posters" button, we should see the saved posters area, and the main poster should be hidden
-- When a user clicks the "Nevermind, take me back!" or "Back to Main" buttons, we should only see the main poster section
-- In summary: Be able to switch between the three views (main poster, form, and saved posters) on the correct button clicks
-
-_Hint: go check out the HTML and CSS files to see how the form and saved posters sections are being hidden in the first place_
-
-## Iteration 2 - Creating a New Poster
-
-Form being filled out:
-![screenshot of form](/readme-imgs/form.png)
-
-Once poster is saved:
 ![screenshot of result](/readme-imgs/form-result.png)
 
-- On the new poster form view, users should be able to fill out the three input fields and then hit the save button
-- When the save button is clicked, several things will happen:
-  - Save the submitted data into the respective arrays (image URL into the images array, etc) so that future random posters can use the user-created data
-  - Use the values from the inputs to create a new instance of our Poster class
-  - Change back to the main poster view (hiding the form view again)
-  - Display the newly created poster image, title, and quote in the main view
+If you click the Make Your Own Poster button you’ll see a form that lets you - you guessed it - make your own poster. If you enter an image URL, title, and quote, you can view your custom poster by clicking the Show My Poster button. If any field is left blank, an alert message will indicate that all fields must be filled out before the poster can be created. The form only accepts images of the following file types: .jpeg, .jpg, .png, or .gif. An alert message will display when an image URL does not reference one of those file types.
 
-## Iteration 3 - Saving & Viewing Posters
+![screenshot of saved posters page](/readme-imgs/saved.png)
 
-Saved posters view:
-![screenshot of saved posters section](/readme-imgs/saved.png)
-
-- When a user clicks the "Save This Poster" button, the current main poster will be added to the `savedPosters` array.
-- If a user clicks the "Save This Poster" more than once on a single poster, it will still only be saved once (no duplicates)
-- When a user clicks the "Show Saved Posters" button, we should see the saved posters section
-- All the posters in the `savedPosters` array should be displayed in the saved posters grid section
-
-## Iteration 4 - Deleting Saved Posters
-
-- From the saved posters view, if a user double clicks a saved poster, it will be deleted
-
-_Hint: How will you update the data model to achieve this?_
-
-## Optional Extensions - Gettin' fancy
-
-Here's a list of possible extensions to implement - but **ONLY IF** your team has completed all the previous iterations **AND** have cleaned up your code to make it DRYer and more readable.
-
-You are welcome to add your own extensions. Be sure they are thoughtful in terms of UX/UI, and that they do not break any prior functionality.
-
-- Implement data validation and error handling into the form (disable button, provide error messages if data entered is not correct, etc)
-- In the main poster view, allow users to click each piece of the poster (image, title, quote) to update just that piece with another random item from the appropriate array
-- When a user single clicks a saved poster, create a modal to view it larger
-- Allow users to drag and drop saved posters into whatever order they want them to appear
+If you like any of your posters you can save them with the Save This Poster button. You can click on the Show Saved Poster button to see everything you’ve saved. If you decide you don’t like one anymore, double click it to delete it. Note that each poster can only be saved once.
 
 
-Project spec & rubric can be found [here](https://frontend.turing.io/projects/module-1/hang-in-there.html)
+##Future Additions
+
+Honestly we’re probably not going to add anything to this site after we turn in this project, but we have some ideas for features that might improve it.
