@@ -124,11 +124,11 @@ window.addEventListener('load', displayRandomPoster)
 
 randomPosterButton.addEventListener('click', displayRandomPoster)
 
+mainPosterView.addEventListener('click', randomizeElement)
+
 showMyPosterButton.addEventListener('click', function() {
   event.preventDefault()
   createCustomPoster()
-  displayPoster()
-  switchViewPosterForm()
 })
 
 posterFormButton.addEventListener('click', switchViewPosterForm)
@@ -162,11 +162,11 @@ function displayPoster() {
 }
 
 function randomizePoster() {
-  var imageURL = images[getRandomIndex(images)]
-  var title = titles[getRandomIndex(titles)]
-  var quote = quotes[getRandomIndex(quotes)]
+  var randomImageURL = images[getRandomIndex(images)]
+  var randomTitle = titles[getRandomIndex(titles)]
+  var randomQuote = quotes[getRandomIndex(quotes)]
 
-  currentPoster = new Poster(imageURL, title, quote)
+  currentPoster = new Poster(randomImageURL, randomTitle, randomQuote)
 }
 
 function savePoster() {
@@ -204,6 +204,8 @@ function createCustomPoster() {
     quotes.push(userQuote)
 
     currentPoster = new Poster(userImageURL, userTitle, userQuote)
+    displayPoster()
+    switchViewPosterForm()
   }
 }
 
@@ -251,4 +253,19 @@ function validateForm(userImageURL, userTitle, userQuote) {
     return false
   }
   return true
+}
+
+function randomizeElement() {
+  var randomImageURL = images[getRandomIndex(images)]
+  var randomTitle = titles[getRandomIndex(titles)]
+  var randomQuote = quotes[getRandomIndex(quotes)]
+
+  if (event.target === mainImageURL) {
+    currentPoster = new Poster(randomImageURL, mainTitle.innerText, mainQuote.innerText)
+  } else if (event.target === mainTitle) {
+    currentPoster = new Poster(mainImageURL.src, randomTitle, mainQuote.innerText)
+  } else if (event.target === mainQuote) {
+    currentPoster = new Poster(mainImageURL.src, mainTitle.innerText, randomQuote)
+  }
+  displayPoster()
 }
