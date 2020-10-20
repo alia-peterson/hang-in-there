@@ -36,7 +36,8 @@ var images = [
   "./assets/runner.jpg",
   "./assets/squirrel.jpg",
   "./assets/tiger.jpg",
-  "./assets/turtle.jpg"
+  "./assets/turtle.jpg",
+  "https://d682ma8ami8n4.cloudfront.net/images/staff/ertmer.jpg"
 ]
 var titles = [
   "determination",
