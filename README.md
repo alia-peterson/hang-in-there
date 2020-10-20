@@ -1,6 +1,6 @@
-#[Hang In There](https://alia-peterson.github.io/hang-in-there/)
+#Hang In There
 
-This is a site that creates 2000s era motivational posters. The user can combine images, titles, and quotes either at random or of their own choosing. This is a simple site that uses vanilla JavaScript, HTML, and CSS. You can view it [here](https://alia-peterson.github.io/hang-in-there/).
+This is a site that creates 2000s era motivational posters. The user can combine images, titles, and quotes either at random or of their own choosing. This is a simple site that uses vanilla JavaScript, HTML, and CSS. You can view Hang in There [here](https://alia-peterson.github.io/hang-in-there/).
 
 ## Why did we make this?
 
@@ -28,7 +28,7 @@ If you like any of your posters you can save them with the Save This Poster butt
 
 ## Future Additions
 
-Honestly we’re probably not going to add anything to this site after we turn in this project, but we have some ideas for features that might improve it.
--It's outside the scope of this class project, but we'd love to change the CSS and HTML. Better styling could make the site pop.
--Being able to select images, titles, and quotes from the full collection in some sort of dropdown could be really fun.
--More testing for the custom poster form could prevent some issues, such as inputing a value that's already in the relevant array.
+Honestly we’re probably not going to add anything to this site after we turn in this project, but we have some ideas for features that might improve it:
+- It's outside the scope of this class project, but we'd love to change the CSS and HTML. Better styling could make the site pop.
+- Being able to select images, titles, and quotes from the full collection in some sort of dropdown could be really fun.
+- More testing for the custom poster form could prevent some issues, such as inputing a value that's already in the relevant array.
