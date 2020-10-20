@@ -145,25 +145,18 @@ showMyPosterButton.addEventListener('click', function() {
     currentPoster = new Poster(userImageURL, userTitle, userQuote)
 
     displayPoster()
-    switchScreens(mainPosterView, posterFormView)
+    switchViewPosterForm()
   }
 })
 
-posterFormButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, posterFormView)
-})
+posterFormButton.addEventListener('click', switchViewPosterForm)
 
-posterFormBackButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, posterFormView)
-})
+posterFormBackButton.addEventListener('click', switchViewPosterForm)
 
-backToMainButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, savedPostersView)
-  posterGrid.innerHTML = ``
-})
+backToMainButton.addEventListener('click', switchViewSavedPosters)
 
 showSavedPostersButton.addEventListener('click', function() {
-  switchScreens(mainPosterView, savedPostersView)
+  switchViewSavedPosters()
   insertSavedPosterHTML()
   addMiniPosterListener()
 })
@@ -194,9 +187,14 @@ function randomizePoster() {
   currentPoster = new Poster(imageURL, title, quote)
 }
 
-function switchScreens(mainView, alternateView) {
-  mainView.classList.toggle('hidden')
-  alternateView.classList.toggle('hidden')
+function switchViewSavedPosters() {
+  mainPosterView.classList.toggle('hidden')
+  savedPostersView.classList.toggle('hidden')
+}
+
+function switchViewPosterForm() {
+  mainPosterView.classList.toggle('hidden')
+  posterFormView.classList.toggle('hidden')
 }
 
 // created new function for adding event listeners to each mini poster and
@@ -232,6 +230,7 @@ function deleteMiniPoster() {
 }
 
 function insertSavedPosterHTML() {
+  posterGrid.innerHTML = ``
   for (var i = 0; i < savedPosters.length; i++) {
     posterGrid.innerHTML += `
     <article class="mini-poster" id=${savedPosters[i].id}>
