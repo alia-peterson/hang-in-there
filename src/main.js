@@ -129,8 +129,6 @@ mainPosterView.addEventListener('click', randomizeElement)
 showMyPosterButton.addEventListener('click', function() {
   event.preventDefault()
   createCustomPoster()
-  displayPoster()
-  switchViewPosterForm()
 })
 
 posterFormButton.addEventListener('click', switchViewPosterForm)
@@ -168,7 +166,7 @@ function randomizePoster() {
   var randomTitle = titles[getRandomIndex(titles)]
   var randomQuote = quotes[getRandomIndex(quotes)]
 
-  currentPoster = new Poster(imageURL, title, quote)
+  currentPoster = new Poster(randomImageURL, randomTitle, randomQuote)
 }
 
 function savePoster() {
@@ -206,6 +204,8 @@ function createCustomPoster() {
     quotes.push(userQuote)
 
     currentPoster = new Poster(userImageURL, userTitle, userQuote)
+    displayPoster()
+    switchViewPosterForm()
   }
 }
 
