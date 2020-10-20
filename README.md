@@ -32,3 +32,4 @@ Honestly we’re probably not going to add anything to this site after we turn i
 - It's outside the scope of this class project, but we'd love to change the CSS and HTML. Better styling could make the site pop.
 - Being able to select images, titles, and quotes from the full collection in some sort of dropdown could be really fun.
 - More testing for the custom poster form could prevent some issues, such as inputing a value that's already in the relevant array.
+- It'd be helpful if the custom poster form could display a preview of the image you want to submit.
